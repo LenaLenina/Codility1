@@ -13,6 +13,7 @@ namespace Codility1
         static void Main(string[] args)
         {
             Solution solution = new Solution();
+
             int result = solution.solution(1041);
 
             Console.WriteLine(result);
@@ -26,14 +27,38 @@ namespace Codility1
         public int solution(int N)
         {
             string convertData = ConverData(N);
+
             List<int> results = GetGap(convertData);
-            return results.Max();
+
+            return Max(results);
+        }
+
+        private int Max(List<int> results)
+        {
+            int result = Int32.MinValue;
+
+            foreach (var item in results)
+            {
+                if(item > result)
+                {
+                    result = item;
+                }
+            }
+
+            return result;
         }
 
         private static List<int> GetGap(string convertData)
         {
             List<int> results = new List<int>();
 
+            GetRanges(convertData, results);
+
+            return results;
+        }
+
+        private static void GetRanges(string convertData, List<int> results)
+        {
             int result = 0;
 
             foreach (var item in convertData)
@@ -48,8 +73,6 @@ namespace Codility1
                     result = 0;
                 }
             }
-
-            return results;
         }
 
         private string ConverData(int N)
